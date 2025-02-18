@@ -72,6 +72,17 @@ void printFlexRaw(FlexRaw flex);
 void printFlexPro(FlexPro flex);
 
 /******************************************************************************
+ * Bluetooth APIs, enums, and definitions
+ */
+
+typedef struct {
+    MpuRaw mpuRaw; // Raw data from the MPU sensor
+    FlexRaw flexRaw; // Raw data from the flex sensor
+} SensorData;
+
+void printSensorData(SensorData sensorData);
+
+/******************************************************************************
  * Motor APIs, enums, and definitions
  * 
  * NOTE: The shoulder has 2 motors because it holds the most weight, 

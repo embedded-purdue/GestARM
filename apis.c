@@ -11,13 +11,17 @@ long doubleToLong(double val, long max, long min) {
 }
 
 void printMpuRaw(MpuRaw mpuRaw) {
+    printf("MpuRaw: {\n");
     printf("Accel: %ld, %ld, %ld\n", mpuRaw.accel[X], mpuRaw.accel[Y], mpuRaw.accel[Z]);
     printf("Gyro: %ld, %ld, %ld\n", mpuRaw.gyro[P], mpuRaw.gyro[R], mpuRaw.gyro[W]);
+    printf("}\n");
 }
 
 void printMpuPro(MpuPro mpuPro) {
+    printf("MpuPro: {\n");
     printf("Pos: %ld, %ld, %ld\n", mpuPro.pos[X], mpuPro.pos[Y], mpuPro.pos[Z]);
     printf("Gyro: %ld, %ld, %ld\n", mpuPro.gyro[P], mpuPro.gyro[R], mpuPro.gyro[W]);
+    printf("}\n");
 }
 
 void printFlexRaw(FlexRaw flexRaw) {
@@ -32,7 +36,15 @@ void printMotorCommand(MotorCommand motorCommand) {
     printf("MotorCommand: %ld\n", motorCommand);
 }
 
+void printSensorData(SensorData sensorData) {
+    printf("SensorData: {\n");
+    printMpuRaw(sensorData.mpuRaw);
+    printFlexRaw(sensorData.flexRaw);
+    printf("}\n");
+}
+
 void printMotorControl(MotorControl motorControl) {
+    printf("MotorControl: {\n");
     for (int i = 0; i < 6; i++) {
         switch (i) {
             case STEPPER:   printf("Stepper:  ");  break;
@@ -44,4 +56,5 @@ void printMotorControl(MotorControl motorControl) {
         }
         printMotorCommand(motorControl.motorCommands[i]);
     }
+    printf("}\n");
 }

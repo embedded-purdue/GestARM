@@ -22,6 +22,10 @@ int main() {
     long x_long = D2L(x_double, ACCEL_MAX, ACCEL_MIN);
     printf("X long: %ld\n", x_long);
 
+    FlexRaw flexRaw = 10;
+    SensorData sensorData = {mpuRaw, flexRaw};
+    printSensorData(sensorData);
+
     // example use of API call, this would return the integrated data in the return
     MpuPro mpuPro = processMpuRaw(mpuRaw);
 
