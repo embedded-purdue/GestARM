@@ -1,0 +1,8 @@
+# VSCode settings
+vscode
+
+# Personal notes and test files
+personal*
+
+# Compiled files
+*.out
