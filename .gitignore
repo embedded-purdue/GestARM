@@ -4,5 +4,8 @@ vscode
 # Personal notes and test files
 personal*
 
+# Media
+*.png
+
 # Compiled files
 *.out

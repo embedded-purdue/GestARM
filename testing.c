@@ -26,6 +26,19 @@ int main() {
     MpuPro mpuPro = processMpuRaw(mpuRaw);
 
     printMpuPro(mpuPro);
+
+    MotorControl motorControl;
+    
+    motorControl.motorCommands[STEPPER] = 1;
+    motorControl.motorCommands[SHOULDER] = 2;
+    motorControl.motorCommands[ELBOW] = 3;
+    motorControl.motorCommands[WRIST_1] = 4;
+    motorControl.motorCommands[WRIST_2] = 5;
+    motorControl.motorCommands[GRIPPER] = 6;
+
+    printMotorControl(motorControl);
+
+    return 0;
 }
 
 MpuPro processMpuRaw(MpuRaw mpuRaw) {

@@ -28,13 +28,13 @@ long doubleToLong(double val, long max, long min);
 #define GYRO_MAX 180 // <ADD UNITS>
 #define GYRO_MIN -180 // <ADD UNITS>
 
-enum {
+enum Axes {
     X = 0, // Forward/Backward index
     Y = 1, // Up/Down index
     Z = 2, // Left/Right index
 };
 
-enum {
+enum Rotations {
     P = 0, // Pitch index (rotation around Z)
     R = 1, // Roll index (rotation around X)
     W = 2, // Yaw index (rotation around Y)
@@ -54,5 +54,51 @@ typedef struct {
 
 void printMpuRaw(MpuRaw mpuRaw);
 void printMpuPro(MpuPro mpuPro);
+
+/******************************************************************************
+ * Flex sensor APIs, enums, and definitions
+ */
+
+#define FLEX_MAX 100 // <ADD UNITS>
+#define FLEX_MIN 0 // <ADD UNITS>
+
+// Raw data API from the flex sensor
+typedef long FlexRaw;
+
+// Processed data API from the flex sensor
+typedef long FlexPro;
+
+void printFlexRaw(FlexRaw flex);
+void printFlexPro(FlexPro flex);
+
+/******************************************************************************
+ * Motor APIs, enums, and definitions
+ * 
+ * NOTE: The shoulder has 2 motors because it holds the most weight, 
+ * but they are controlled as one motor.
+ */
+
+#define MOTOR_MAX 100 // <ADD UNITS>
+#define MOTOR_MIN -100 // <ADD UNITS>
+
+enum Motors {
+    STEPPER = 0,  // Stepper motor index
+    SHOULDER = 1, // Shoulder motor index
+    ELBOW = 2,    // Elbow motor index
+    WRIST_1 = 3,  // Wrist motor 1 index
+    WRIST_2 = 4,  // Wrist motor 2 index
+    GRIPPER = 5,  // Gripper motor index
+};
+
+// Command to be sent to the motor controller
+typedef long MotorCommand;
+
+// Motor control API to be sent to the motor controllers
+typedef struct {
+    MotorCommand motorCommands[6];
+} MotorControl;
+
+void printMotorCommand(MotorCommand motorCommand);
+void printMotorControl(MotorControl motorControl);
 
 #endif // APIS_H
