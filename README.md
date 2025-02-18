@@ -1,0 +1,1 @@
+The purpose of this project is to develop robot arm that mirrors hand movements for intuitive, wireless control. The glove has gyroscopes, flex sensors, and Bluetooth to connect to robot arm. The robot arm's microcontroller receives sensor data to talk to the motors to move the gripper, elbow, shoulder, and rotator joints. 
