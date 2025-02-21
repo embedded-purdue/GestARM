@@ -16,10 +16,13 @@ flex_min = 0
 rand_max = 10
 rand_min = -10
 
-noiseBool = True
+gravity_bool = True
+gravity = -50
+
+noise_bool = True
 
 def noise():
-    return random.randint(rand_min, rand_max) if noiseBool else 0
+    return random.randint(rand_min, rand_max) if noise_bool else 0
 
 
 # Null mpu
@@ -28,7 +31,7 @@ data = []
 
 for i in range(num_samples):
     x = noise()
-    y = noise()
+    y = noise() + (gravity if gravity_bool else 0)
     z = noise()
     p = noise()
     r = noise()
@@ -68,7 +71,7 @@ for i in range(num_samples):
         accel = 0
         
     x = noise() + int(accel)
-    y = noise()
+    y = noise() + (gravity if gravity_bool else 0)
     z = noise()
     p = noise()
     r = noise()
