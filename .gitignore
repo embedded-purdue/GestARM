@@ -1,6 +1,6 @@
 # VSCode settings
 vscode
-
+.vscode
 # Personal notes and test files
 personal*
 
@@ -13,3 +13,16 @@ sample_data/mpu*
 
 # Compiled files
 *.out
+
+build/
+sdkconfig
+sdkconfig.old
+
+esp_idf.json
+espidf.constraints.v5.4.txt
+
+dist/
+
+python_env/
+
+tools/

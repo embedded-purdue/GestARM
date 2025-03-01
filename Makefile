@@ -1,4 +1,4 @@
-GCC = g++ -Wall -Wextra
+GCC = gcc -Wall -Wextra
 
 SRCS = testing.c apis.c
 EXEC = a.out
