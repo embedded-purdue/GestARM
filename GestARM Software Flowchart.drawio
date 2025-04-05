@@ -1,0 +1,170 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0" version="26.0.14">
+  <diagram name="Page-1" id="HQ0ijm2DKQntqbkyBwp_">
+    <mxGraphModel dx="1105" dy="666" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="RUSMlpvyBuKSHeOynsab-6" value="&lt;span&gt;ESP Arm&lt;/span&gt;" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.patternFillRect;fillStyle=diag;step=5;fillStrokeWidth=0.2;fillStrokeColor=#dddddd;strokeColor=#6c8ebf;fillColor=#dae8fc;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;spacing=2;opacity=50;" vertex="1" parent="1">
+          <mxGeometry x="740" y="40" width="480" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-5" value="&lt;span&gt;ESP Glove&lt;/span&gt;" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.patternFillRect;fillStyle=diag;step=5;fillStrokeWidth=0.2;fillStrokeColor=#dddddd;opacity=60;strokeColor=#b85450;fillColor=#f8cecc;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="120" width="320" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="RUSMlpvyBuKSHeOynsab-1" target="RUSMlpvyBuKSHeOynsab-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-17" value="I2C" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="RUSMlpvyBuKSHeOynsab-3">
+          <mxGeometry x="-0.2278" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-1" value="MPU" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-2" value="Read MPU data and package into API" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-7" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=default;" edge="1" parent="1" source="RUSMlpvyBuKSHeOynsab-29" target="RUSMlpvyBuKSHeOynsab-24">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="762.5" y="390.0000000000001" as="sourcePoint" />
+            <mxPoint x="710" y="270" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="700" y="410" />
+              <mxPoint x="700" y="90" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-10" value="Bluetooth" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="RUSMlpvyBuKSHeOynsab-7">
+          <mxGeometry x="-0.1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-11" value="Flex Sensor" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="RUSMlpvyBuKSHeOynsab-2" target="RUSMlpvyBuKSHeOynsab-25">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="590" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-14" value="MpuRaw[6]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="RUSMlpvyBuKSHeOynsab-13">
+          <mxGeometry x="-0.0232" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="RUSMlpvyBuKSHeOynsab-15" target="RUSMlpvyBuKSHeOynsab-25">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-28" value="FlexRaw[1]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="RUSMlpvyBuKSHeOynsab-27">
+          <mxGeometry x="0.0619" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-15" value="Read Flex Sensor and package into API" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RUSMlpvyBuKSHeOynsab-11" target="RUSMlpvyBuKSHeOynsab-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-18" value="ADC" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="RUSMlpvyBuKSHeOynsab-16">
+          <mxGeometry x="-0.1583" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RUSMlpvyBuKSHeOynsab-24" target="RUSMlpvyBuKSHeOynsab-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-37" value="FlexRaw[1]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="RUSMlpvyBuKSHeOynsab-36">
+          <mxGeometry x="-0.1522" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="RUSMlpvyBuKSHeOynsab-24" target="RUSMlpvyBuKSHeOynsab-34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-39" value="MpuRaw[6]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="RUSMlpvyBuKSHeOynsab-38">
+          <mxGeometry x="0.0022" y="2" relative="1" as="geometry">
+            <mxPoint y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-24" value="Read sensor data from bluetooth" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RUSMlpvyBuKSHeOynsab-25" target="RUSMlpvyBuKSHeOynsab-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-31" value="SensorData[7]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="RUSMlpvyBuKSHeOynsab-30">
+          <mxGeometry x="-0.0678" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-25" value="Package sensor data to send over bluetooth" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="270" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-29" value="Push data to ESP Arm through bluetooth" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RUSMlpvyBuKSHeOynsab-34" target="RUSMlpvyBuKSHeOynsab-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-42" value="MpuPro[6]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="RUSMlpvyBuKSHeOynsab-41">
+          <mxGeometry x="-0.1957" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-34" value="Integrate accel to get position and package into MpuPro" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="RUSMlpvyBuKSHeOynsab-35" target="RUSMlpvyBuKSHeOynsab-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-44" value="FlexPro[1]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="RUSMlpvyBuKSHeOynsab-43">
+          <mxGeometry x="-0.0283" y="6" relative="1" as="geometry">
+            <mxPoint y="6" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-35" value="Process flex data into FlexPro" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="RUSMlpvyBuKSHeOynsab-40" target="RUSMlpvyBuKSHeOynsab-45">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-47" value="MotorControl[6]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="RUSMlpvyBuKSHeOynsab-46">
+          <mxGeometry x="-0.1087" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-40" value="Perform threshold calculations and determine which motors must be on" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RUSMlpvyBuKSHeOynsab-45" target="RUSMlpvyBuKSHeOynsab-49">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-51" value="PWM[5]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="RUSMlpvyBuKSHeOynsab-50">
+          <mxGeometry x="0.0087" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RUSMlpvyBuKSHeOynsab-45" target="RUSMlpvyBuKSHeOynsab-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-53" value="GPIO[1]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="RUSMlpvyBuKSHeOynsab-52">
+          <mxGeometry x="-0.3813" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-45" value="Turn motor values into PWM/GPIO output" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-48" value="Stepper Motor" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RUSMlpvyBuKSHeOynsab-49" value="Servo Motors" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
