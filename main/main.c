@@ -20,8 +20,11 @@ void read_flex_sensor(void *pvParameter) {
     while (1) {
         uint32_t raw_adc = adc1_get_raw(FLEX_SENSOR_ADC_CHANNEL); // reads raw ADC value
         uint32_t voltage = esp_adc_cal_raw_to_voltage(raw_adc, adc_chars); // converts raw ADC value to voltage
+
+        bool is_flexed = (voltage > 1550); // flag that moves the claw when flexed
         
         printf("Flex Sensor Raw ADC: %lu || Voltage: %lumV\n", (unsigned long)raw_adc, (unsigned long)voltage); // prints raw ADC value and voltage (mV) to console
+        printf("Flexed: %s\n", is_flexed ? "YES" : "NO"); // prints whether the sensor is flexed or not
 
         vTaskDelay(1000 / portTICK_PERIOD_MS); // delays for 1 second
     }
