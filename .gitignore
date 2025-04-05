@@ -26,3 +26,6 @@ dist/
 python_env/
 
 tools/
+build/
+sdkconfig
+sdkconfig.old
