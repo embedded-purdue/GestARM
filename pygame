@@ -1,0 +1,133 @@
+import serial
+import pygame
+import sys
+
+# ----------------------------
+# Serial Port Configuration
+# ----------------------------
+SERIAL_PORT = "COM3"      # Change this to your serial port (e.g., "/dev/ttyUSB0" on Linux)
+BAUD_RATE = 115200
+
+try:
+    ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=0.1)
+except Exception as e:
+    print(f"Error opening serial port {SERIAL_PORT}: {e}")
+    sys.exit()
+
+# ----------------------------
+# Pygame Initialization
+# ----------------------------
+pygame.init()
+
+WINDOW_WIDTH, WINDOW_HEIGHT = 800, 600
+screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+pygame.display.set_caption("Snake Game - 3D Flick Control")
+
+# Colors
+BACKGROUND_COLOR = (0, 0, 0)
+SNAKE_COLOR = (0, 255, 0)
+
+# ----------------------------
+# Snake Settings
+# ----------------------------
+snake_pos = [WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2]
+snake_speed = [0, 0]    # [vx, vy] in pixels per frame
+base_max_speed = 10     # Maximum speed in pixels per frame
+
+clock = pygame.time.Clock()
+
+# ----------------------------
+# Utility Mapping Functions
+# ----------------------------
+
+def map_axis(val, in_min=-20, in_max=20, out_min=-base_max_speed, out_max=base_max_speed):
+    """Map a float from range [-20,20] to velocity range [-base_max_speed, base_max_speed]."""
+    # Linear mapping:
+    return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+
+def map_z_multiplier(val, in_min=-20, in_max=20, out_min=0.5, out_max=2.0):
+    """Map the z-axis reading to a speed multiplier (e.g., 0.5x to 2.0x)."""
+    return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+
+# ----------------------------
+# Game Functions
+# ----------------------------
+
+def update_snake():
+    """Update the snake position based on its velocity."""
+    global snake_pos, snake_speed
+    snake_pos[0] += snake_speed[0]
+    snake_pos[1] += snake_speed[1]
+    
+    # Wrap around screen edges
+    if snake_pos[0] < 0:
+        snake_pos[0] = WINDOW_WIDTH
+    elif snake_pos[0] > WINDOW_WIDTH:
+        snake_pos[0] = 0
+        
+    if snake_pos[1] < 0:
+        snake_pos[1] = WINDOW_HEIGHT
+    elif snake_pos[1] > WINDOW_HEIGHT:
+        snake_pos[1] = 0
+
+def draw_snake():
+    """Draw the snake (head as circle) on the screen."""
+    pygame.draw.circle(screen, SNAKE_COLOR, (int(snake_pos[0]), int(snake_pos[1])), 10)
+
+# ----------------------------
+# Main Game Loop
+# ----------------------------
+running = True
+while running:
+    # Process Pygame events for quitting
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+            
+    # Read serial data if available
+    try:
+        if ser.in_waiting:
+            # Read a line from the serial port; expected format: "flag,x,y,z,w1,w2"
+            line = ser.readline().decode("utf-8").strip()
+            # Skip empty lines
+            if line:
+                parts = line.split(',')
+                if len(parts) >= 6:
+                    try:
+                        # We ignore the first value (gripper flag) and the last two (wrist data).
+                        x_val = float(parts[1])
+                        y_val = float(parts[2])
+                        z_val = float(parts[3])
+                        
+                        # Map x and y values (assumed range: [-20, 20]) to velocity
+                        vx = map_axis(x_val)
+                        vy = map_axis(y_val)
+                        
+                        # Map z value to a multiplier (assumed range: [-20, 20] maps to [0.5, 2.0])
+                        z_multiplier = map_z_multiplier(z_val)
+                        
+                        # Update snake speed based on x and y, scaled by z multiplier.
+                        snake_speed = [int(vx * z_multiplier), int(vy * z_multiplier)]
+                        
+                        # Debug output:
+                        print(f"Received: x={x_val:.1f}, y={y_val:.1f}, z={z_val:.1f} => vx={vx}, vy={vy}, multiplier={z_multiplier:.2f}")
+                    except ValueError:
+                        print("Error: Invalid float conversion in data:", line)
+                else:
+                    print("Error: Expected 6 comma-separated values, got:", line)
+    except Exception as e:
+        print("Serial read error:", e)
+    
+    # Update the snake's position
+    update_snake()
+    
+    # Draw the game
+    screen.fill(BACKGROUND_COLOR)
+    draw_snake()
+    pygame.display.flip()
+    
+    clock.tick(30)  # 30 FPS
+
+ser.close()
+pygame.quit()
+sys.exit()
