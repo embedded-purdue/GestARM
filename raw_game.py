@@ -7,8 +7,18 @@ import random
 # Initialize pygame
 pygame.init()
 pygame.mixer.init()
-coin_collect_sound = pygame.mixer.Sound("coin_collect.wav")
-rolling_sound = pygame.mixer.Sound("rolling_ball.wav")
+coin_collect_sound = pygame.mixer.Sound("sounds/coin_collect.wav")
+rolling_sound = pygame.mixer.Sound("sounds/rolling_ball.wav")
+level_up_sound = pygame.mixer.Sound("sounds/level_up.wav")
+pipe_death_sound = pygame.mixer.Sound("sounds/pipe_death.wav")
+mario_death_sound = pygame.mixer.Sound("sounds/mario_death.wav")
+mario_death_sound.set_volume(0.5)  # Set volume for mario death sound
+rolling_channel = pygame.mixer.Channel(0)  
+coin_channel = pygame.mixer.Channel(1)
+pipe_death_channel = pygame.mixer.Channel(2)   
+mario_death_channel = pygame.mixer.Channel(3)  
+level_up_channel = pygame.mixer.Channel(4)
+
 
 # Constants
 WIDTH, HEIGHT = 1000, 900
@@ -66,8 +76,11 @@ class Ball:
         self.x += self.vx
         self.y += self.vy
         
-        rolling_sound.set_volume((abs(self.vx) + abs(self.vy)) / 10)
-        rolling_sound.play()
+        # Play rolling sound with volume based on velocity
+        rolling_volume = (abs(self.vx) + abs(self.vy)) / 10
+        rolling_channel.set_volume(rolling_volume)
+        if not rolling_channel.get_busy():  # Only play if not already playing
+            rolling_channel.play(rolling_sound, loops=-1)
         
     def draw(self, screen, offset_x, offset_y, tilt_x, tilt_y):
         # Adjust ball position based on tilt for perspective
@@ -179,13 +192,18 @@ class Game:
                 coin.collected = True
                 self.score += COIN_SCORE_VALUE
                 self.spawn_coin()  # Spawn a new coin when one is collected
-                coin_collect_sound.play()  # Play coin collect sound
+                coin_channel.play(coin_collect_sound)  # Play coin collect sound
         
         # Remove collected coins
         self.coins = [coin for coin in self.coins if not coin.collected]
         
         # Check if ball fell off
         if self.ball.is_off_board():
+            rolling_channel.stop()
+            if random.randint(0, 5) == 0:
+                pipe_death_channel.play(pipe_death_sound)
+            else:
+                mario_death_channel.play(mario_death_sound)
             self.game_over = True
         else:
             self.time -= 1  # Small score increase for staying alive
@@ -199,6 +217,7 @@ class Game:
             self.time = GAME_TIME - self.round * 100
             self.score = 0
             self.round += 1
+            level_up_channel.play(level_up_sound)
             
     def draw_board(self, screen, center_x, center_y):
         half_size = BOARD_SIZE // 2
