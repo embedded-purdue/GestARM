@@ -1,0 +1,4 @@
+ESAP_GEST.ino is flashed to glove
+Gest.py tests and reads the COM port of the arm
+spark_ball_balance.py is the game code
+minecraft_control.py controls the mouse so a Windows computer can play Minecraft
