@@ -118,7 +118,7 @@ void loop() {
   myData.values[2] = accel.z;
   myData.values[3] = gyro.x;       // pitch
   myData.values[4] = gyro.y;       // roll
-  myData.values[5] = flexed ? 1.0f : 0.0f;
+  myData.values[5] = mV; // sending raw mv now
 
   // —— Serial output in the *receiver* style ——
   Serial.print("TX → [");
@@ -137,7 +137,11 @@ void loop() {
     SerialBT.print("Send err: "); SerialBT.println(res);
   }
 
-  delay(LOOP_DELAY);
+  digitalWrite(2, HIGH);
+  delay(0.1);
+  digitalWrite(2, LOW);
+
+  delay(LOOP_DELAY); 
 }
 // ——————————————————————————————————————————————————
 Vector3 readAccel() {
@@ -194,6 +198,7 @@ int getSign(float v) {
 }
 
 void calibrateAccelerometer() {
+  digitalWrite(2, HIGH);
   const int SAMPLES = 500;
   Vector3 sum;
   Serial.println("Keep MPU flat and still...");
@@ -208,6 +213,7 @@ void calibrateAccelerometer() {
   accelOffset = sum / SAMPLES;
   Serial.println("\nOffset:");
   accelOffset.print("");
+  digitalWrite(2, LOW);
 }
 
 void initEspNow() {

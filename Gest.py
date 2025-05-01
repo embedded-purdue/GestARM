@@ -30,8 +30,9 @@ def readData():
                                     z_val = float(parts[2])
                                     roll = float(parts[3])
                                     pitch = float(parts[4])
-                                    flex = float(parts[5])
-                                    return x_val, y_val, z_val, roll, pitch, flex
+                                    mV = float(parts[5])
+                                    flexed = 1 if mV > 700 else 0
+                                    return x_val, y_val, z_val, roll, pitch, flexed, mV
                                 except ValueError:
                                     print("Error: Invalid float conversion in data:", line)
                 except Exception as e:

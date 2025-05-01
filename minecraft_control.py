@@ -11,7 +11,7 @@ SENSITIVITY = 0.07          # Higher = faster cursor movement
 DEAD_ZONE = 1.5           # Smaller = more sensitive to small movements
 SMOOTHING_FACTOR = 0.15   # Lower = more responsive
 POLL_RATE = 120           # Target updates per second
-CLICK_THRESHOLD = 4       # Flex sensor value to trigger click
+CLICK_TIME_DELAY = 0.5       # Flex sensor value to trigger click
 
 # Initialize
 pyautogui.FAILSAFE = False
@@ -23,11 +23,12 @@ user32 = ctypes.windll.user32
 # State variables
 last_movement = np.zeros(2)
 last_click_time = time.time()
-click_delay = 0.3
+click_delay = 0.5
 
 def move_mouse(dx, dy):
     """Direct input method that works with Minecraft"""
     user32.mouse_event(win32con.MOUSEEVENTF_MOVE, int(dx), int(dy), 0, 0)
+    pass
 
 def process_movement(roll, pitch):
     """Calculate relative mouse movement with improved Minecraft response"""
@@ -54,14 +55,15 @@ def handle_click(flex_value):
     global last_click_time
     current_time = time.time()
     
-    if flex_value > CLICK_THRESHOLD:
+    if flex_value > 0.5:
         if (current_time - last_click_time) > click_delay:
-            user32.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
+            # user32.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0)
             last_click_time = current_time
         return True
     else:
-        if win32api.GetKeyState(win32con.VK_LBUTTON) < 0:
-            user32.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+        if win32api.GetKeyState(win32con.VK_RBUTTON) < 0:
+            # user32.mouse_event(win32con.MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0)
+            pass
         return False
 
 def main():
@@ -83,7 +85,8 @@ def main():
             start_time = time.perf_counter()
             
             try:
-                *_, roll, pitch, flex = readData()
+                _, _, _, roll, pitch, flex, _ = readData()
+                # print(f"Roll: {roll}, Pitch: {pitch}, Flex: {flex}")
                 
                 # Process movement
                 dx, dy = process_movement(roll, pitch)
@@ -102,8 +105,8 @@ def main():
             
     except KeyboardInterrupt:
         # Ensure mouse button is released on exit
-        if win32api.GetKeyState(win32con.VK_LBUTTON) < 0:
-            user32.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+        if win32api.GetKeyState(win32con.VK_RBUTTON) < 0:
+            user32.mouse_event(win32con.MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0)
         print("\nStopping Minecraft mouse control")
 
 if __name__ == "__main__":

@@ -386,8 +386,8 @@ def main():
             rollx = data[3]
             pitchy = data[4]
                                       
-            game.target_tilt_x = rollx / 120
-            game.target_tilt_y = -pitchy / 120
+            game.target_tilt_x = rollx / 160
+            game.target_tilt_y = -pitchy / 160
         else: # Game over state
             game.target_tilt_x = 0
             game.target_tilt_y = 0
