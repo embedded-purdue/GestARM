@@ -47,7 +47,7 @@ struct_message myData;
 Adafruit_MPU6050 mpu;
 #define FLICK_THRESH    5.0f
 #define HISTORY_SIZE   10
-#define LOOP_DELAY     500      // ← now 500 ms
+#define LOOP_DELAY     16      // ← now 500 ms
 
 Vector3 accelOffset;
 Vector3 accelHistory[HISTORY_SIZE];
@@ -92,30 +92,30 @@ void loop() {
   Vector3 accel = readAccel();
   Vector3 gyro  = calcGyro(accel);
 
-  // 2) Flick detection
-  updateHistory(accel);
-  Vector3 flick = detectFlick();
-  if (flick.x || flick.y || flick.z) {
-    flick.print("Flick ");
-    digitalWrite(2, HIGH);
-    delay(50);
-  }
+  // // 2) Flick detection
+  // updateHistory(accel);
+  // Vector3 flick = detectFlick();
+  // if (flick.x || flick.y || flick.z) {
+  //   flick.print("Flick ");
+  //   digitalWrite(2, HIGH);
+  //   delay(50);
+  // }
 
   // 3) Flex sensor
   int raw     = analogRead(flexPin);
   float mV    = raw / (float)ADC_RESOLUTION * VREF * 1000.0f;
   bool flexed = (mV < flexThreshold_mV);
-  if (flexed) {
-    Serial.println("FLEXED");
-    digitalWrite(2, HIGH);
-    delay(10);
-  }
-  digitalWrite(2, LOW);
+  // if (flexed) {
+  //   Serial.println("FLEXED");
+  //   digitalWrite(2, HIGH);
+  //   delay(10);
+  // }
+  // digitalWrite(2, LOW);
 
   // 4) Pack into array
-  myData.values[0] = flick.x;
-  myData.values[1] = flick.y;
-  myData.values[2] = flick.z;
+  myData.values[0] = accel.x;
+  myData.values[1] = accel.y;
+  myData.values[2] = accel.z;
   myData.values[3] = gyro.x;       // pitch
   myData.values[4] = gyro.y;       // roll
   myData.values[5] = flexed ? 1.0f : 0.0f;
@@ -126,14 +126,6 @@ void loop() {
     Serial.print(myData.values[i], 3);
     if (i < 5) Serial.print(", ");
   }
-  Serial.println("]");
-  Serial.print("  Flick X: ");    Serial.println(myData.values[0], 3);
-  Serial.print("  Flick Y: ");    Serial.println(myData.values[1], 3);
-  Serial.print("  Flick Z: ");    Serial.println(myData.values[2], 3);
-  Serial.print("  Gyro Pitch: "); Serial.println(myData.values[3], 3);
-  Serial.print("  Gyro Roll: ");  Serial.println(myData.values[4], 3);
-  Serial.print("  Flexed: ");     Serial.println((int)myData.values[5]);
-  Serial.println("-------------------------");
 
   // 5) Send via ESP-NOW
   esp_err_t res = esp_now_send(broadcastAddress, (uint8_t*)&myData, sizeof(myData));
@@ -155,8 +147,8 @@ Vector3 readAccel() {
 }
 
 Vector3 calcGyro(const Vector3& accel) {
-  float pitch = (accel.z < -4 && fabs(accel.y) > 4) ? accel.y * 9 : 0;
-  float roll  = (accel.z < -4 && fabs(accel.x) > 4) ? accel.x * 9 : 0;
+  float pitch = accel.y * 9;
+  float roll  = accel.x * 9;
   return Vector3(pitch, roll, 0);
 }
 

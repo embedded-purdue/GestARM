@@ -3,31 +3,24 @@ import sys
 import math
 from pygame import gfxdraw
 import random
-import serial
-import re
+import Gest
 
 death_sound_on = True
 
 # Initialize pygame
 pygame.init()
 pygame.mixer.init()
-coin_collect_sound = pygame.mixer.Sound(r"GestARM\sounds\coin_collect.wav")
-rolling_sound = pygame.mixer.Sound(r"GestARM\sounds\rolling_ball.wav")
-level_up_sound = pygame.mixer.Sound(r"GestARM\sounds\level_up.wav")
-pipe_death_sound = pygame.mixer.Sound(r"GestARM\sounds\pipe_death.wav")
-mario_death_sound = pygame.mixer.Sound(r"GestARM\sounds\mario_death.wav")
+coin_collect_sound = pygame.mixer.Sound(r"sounds\coin_collect.wav")
+rolling_sound = pygame.mixer.Sound(r"sounds\rolling_ball.wav")
+level_up_sound = pygame.mixer.Sound(r"sounds\level_up.wav")
+pipe_death_sound = pygame.mixer.Sound(r"sounds\pipe_death.wav")
+mario_death_sound = pygame.mixer.Sound(r"sounds\mario_death.wav")
 mario_death_sound.set_volume(0.5)  # Set volume for mario death sound
 rolling_channel = pygame.mixer.Channel(0)  
 coin_channel = pygame.mixer.Channel(1)
 pipe_death_channel = pygame.mixer.Channel(2)   
 mario_death_channel = pygame.mixer.Channel(3)  
 level_up_channel = pygame.mixer.Channel(4)
-
-try:
-    ser = serial.Serial("COM8", 115200, timeout=0.1)
-except Exception as e:
-    print("Serial port error:", e)
-    ser = None
 
 # Constants
 WIDTH, HEIGHT = 1000, 900
@@ -379,7 +372,6 @@ def key_press_main():
 
 def main():
     game = Game()
-    float_pattern = re.compile(r"[-+]?\d*\.\d+|\d+")
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -390,50 +382,19 @@ def main():
                     game.reset_game()
       
         if not game.game_over:
-            if ser:
-                try:
-                    if ser.in_waiting:
-                        # Read a line from the serial port; expected format: "flag,x,y,z,w1,w2"
-                        line = ser.readline()
-                        line = line.decode("utf-8").strip()
-                        # Skip empty lines
-                        if line:
-                            parts = line.split(',')
-                            parts = float_pattern.findall(line)
-                            if len(parts) < 6:
-                                continue
-                            parts = [float(x) for x in parts[:6]]
-                            print("Parsed floats:", parts)
-                            if len(parts) >= 6:
-                                try:
-                                    # We ignore the first value (gripper flag) and the last two (wrist data).
-                                    x_val = float(parts[1])
-                                    y_val = float(parts[2])
-                                    roll = float(parts[3])
-                                    pitch = float(parts[4])
-                                    flex = float(parts[5])
-                                
-                                    # Map x and y values (assumed range: [-20, 20]) to velocity
-                                    rollx = game.map_axis(roll)
-                                    pitchy = game.map_axis(pitch)
-                                
-                                    print("Reached!!!")
-                                
-                                    #game.current_tilt_x = rollx 
-                                    #game.current_tilt_y = pitchy                            
-                                    game.target_tilt_x = rollx/ 100
-                                    game.target_tilt_y = pitchy/ 100
-                                except ValueError:
-                                    print("Error: Invalid float conversion in data:", line)
-                            else:
-                                print("Error: Expected 6 comma-separated values, got:", line)
-                except Exception as e:
-                    print("Serial read error:", e)
-                # else:
-                #     # Fallback if serial is not available.
-                #     game.target_tilt_x = 0
-                #     game.target_tilt_y = 0
-          
+            data = Gest.readData()
+            rollx = data[3]
+            pitchy = data[4]
+                                      
+            game.target_tilt_x = rollx / 120
+            game.target_tilt_y = -pitchy / 120
+        else: # Game over state
+            game.target_tilt_x = 0
+            game.target_tilt_y = 0
+            data = Gest.readData()
+            flexed = data[5]
+            if flexed > 0.5:
+                game.reset_game()
         # Update game state and draw
         game.update()
         screen.fill(BACKGROUND_COLOR)
